@@ -1,0 +1,38 @@
+{
+  "name": "Quản lý chi tiêu cá nhân",
+  "short_name": "Finance",
+  "description": "Theo dõi thu chi, đầu tư và tiết kiệm trên mobile, tablet và PC.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay", "browser"],
+  "orientation": "any",
+  "background_color": "#f8fafc",
+  "theme_color": "#7C3AED",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chi tiêu",
+      "short_name": "Chi tiêu",
+      "url": "/?tab=expense"
+    },
+    {
+      "name": "Đầu tư",
+      "short_name": "Đầu tư",
+      "url": "/?tab=investment"
+    },
+    {
+      "name": "Tiết kiệm",
+      "short_name": "Tiết kiệm",
+      "url": "/?tab=savings"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "personal-finance-manager",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "set NEXT_DIST_DIR=.next-dev&& next dev -p 3000",
+    "build": "npm run check:utf8 && next build",
+    "start": "next start",
+    "postinstall": "prisma generate",
+    "lint": "next lint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio",
+    "check:utf8": "node scripts/check-encoding.cjs"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.11.2",
+    "@prisma/client": "^6.5.0",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.577.0",
+    "next": "^15.2.1",
+    "next-auth": "^5.0.0-beta.31",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.2.1",
+    "postcss": "^8.5.8",
+    "prisma": "^6.5.0",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.8.2"
+  }
+}
