@@ -195,8 +195,8 @@ export function ExpenseTabUI({
         </div>
       ) : null}
 
-      <div className="grid grid-cols-12 items-start gap-6">
-        <div className="col-span-12 grid gap-6 xl:col-span-8">
+      <div className="grid min-w-0 grid-cols-12 items-start gap-6">
+        <div className="col-span-12 grid min-w-0 gap-6 2xl:col-span-8">
           <ExpenseCategoryBreakdown sortedCategories={sortedCategories} currentExpense={currentExpense} budgetLimit={budgetLimit} />
 
           <SectionCard
@@ -208,11 +208,11 @@ export function ExpenseTabUI({
           </SectionCard>
         </div>
 
-        <aside className="col-span-12 grid gap-6 xl:sticky xl:top-4 xl:col-span-4">
-          <SectionCard>
+        <aside className="col-span-12 grid min-w-0 gap-6 2xl:sticky 2xl:top-4 2xl:col-span-4">
+          <SectionCard className="min-w-0 overflow-hidden">
             <BudgetForm month={expenseMonthFilter === "all" ? expenseSummaryMonth : expenseMonthFilter} currentLimit={budgetLimit} embedded />
           </SectionCard>
-          <SectionCard>
+          <SectionCard className="min-w-0 overflow-hidden">
             <TransactionForm embedded />
           </SectionCard>
         </aside>

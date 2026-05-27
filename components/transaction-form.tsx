@@ -57,17 +57,17 @@ export function TransactionForm({ embedded = false }: TransactionFormProps) {
   return (
     <form
       action={handleAction}
-      className={embedded ? "grid gap-5 text-left" : "grid gap-5 rounded-[28px] border border-white/70 bg-white/88 p-5 text-left shadow-sm shadow-slate-200/60 backdrop-blur-xl sm:p-6 dark:border-white/5 dark:bg-[#111827]/80 dark:shadow-none"}
+      className={embedded ? "grid min-w-0 gap-5 text-left" : "grid min-w-0 gap-5 rounded-[28px] border border-white/70 bg-white/88 p-5 text-left shadow-sm shadow-slate-200/60 backdrop-blur-xl sm:p-6 dark:border-white/5 dark:bg-[#111827]/80 dark:shadow-none"}
     >
-      <div>
+      <div className="min-w-0">
         <p className="m-0 text-xs font-bold text-rose-700 dark:text-rose-300">Giao dịch</p>
-        <h2 className="m-0 mt-1 text-xl font-bold tracking-tight text-slate-950 dark:text-white">Thêm thu chi</h2>
+        <h2 className="m-0 mt-1 break-words text-xl font-bold tracking-tight text-slate-950 dark:text-white">Thêm thu chi</h2>
         <p className="m-0 mt-2 text-sm font-medium leading-6 text-slate-500 dark:text-slate-400">Ghi nhanh số tiền, ngày và nội dung dòng tiền.</p>
       </div>
 
-      <label className={`block rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 transition ${fieldFocusClass} dark:border-white/5 dark:bg-[#0a0f1d]`}>
+      <label className={`block min-w-0 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 transition ${fieldFocusClass} dark:border-white/5 dark:bg-[#0a0f1d]`}>
         <span className="block text-xs font-bold text-slate-500">Số tiền giao dịch</span>
-        <div className="mt-3 flex items-center gap-3">
+        <div className="mt-3 flex min-w-0 items-center gap-3">
           <MoneyInput
             name="amount"
             value={amount}
@@ -85,7 +85,7 @@ export function TransactionForm({ embedded = false }: TransactionFormProps) {
 
       <input type="hidden" name="type" value={type} />
 
-      <div className="grid grid-cols-2 gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5 dark:border-white/5 dark:bg-[#0a0f1d]">
+      <div className="grid min-w-0 grid-cols-2 gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5 dark:border-white/5 dark:bg-[#0a0f1d]">
         <button
           type="button"
           className={`flex h-11 items-center justify-center gap-2 rounded-xl text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500 ${type === "EXPENSE" ? "bg-white text-rose-600 shadow-sm dark:bg-[#111827]" : "text-slate-500 hover:text-slate-900 dark:hover:text-white"}`}
@@ -104,7 +104,7 @@ export function TransactionForm({ embedded = false }: TransactionFormProps) {
         </button>
       </div>
 
-      <div className="grid gap-3">
+      <div className="grid min-w-0 gap-3">
         <label className={`block rounded-2xl border border-slate-200 bg-white px-4 py-3 transition ${fieldFocusClass} dark:border-white/5 dark:bg-[#0a0f1d]`}>
           <span className="block text-xs font-bold text-slate-500">Thời điểm</span>
           <input

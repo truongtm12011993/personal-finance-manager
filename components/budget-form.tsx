@@ -10,7 +10,7 @@ type BudgetFormProps = {
 };
 
 const FIELD =
-  "rounded-2xl border border-slate-200 bg-white px-4 py-3 transition focus-within:border-rose-300 focus-within:ring-4 focus-within:ring-rose-500/10 dark:border-white/5 dark:bg-[#0a0f1d]";
+  "min-w-0 rounded-2xl border border-slate-200 bg-white px-4 py-3 transition focus-within:border-rose-300 focus-within:ring-4 focus-within:ring-rose-500/10 dark:border-white/5 dark:bg-[#0a0f1d]";
 
 function formatMonth(month: string) {
   if (!month || !month.includes("-")) return "Toàn bộ lịch sử";
@@ -29,11 +29,11 @@ export function BudgetForm({ month, currentLimit, embedded = false }: BudgetForm
   return (
     <form
       action={setBudget}
-      className={embedded ? "grid gap-4 text-left" : "grid gap-5 rounded-[28px] border border-white/70 bg-white/88 p-5 text-left shadow-sm shadow-slate-200/60 backdrop-blur-xl sm:p-6 dark:border-white/5 dark:bg-[#111827]/80 dark:shadow-none"}
+      className={embedded ? "grid min-w-0 gap-4 text-left" : "grid min-w-0 gap-5 rounded-[28px] border border-white/70 bg-white/88 p-5 text-left shadow-sm shadow-slate-200/60 backdrop-blur-xl sm:p-6 dark:border-white/5 dark:bg-[#111827]/80 dark:shadow-none"}
     >
-      <div>
+      <div className="min-w-0">
         <p className="m-0 text-xs font-bold text-rose-700 dark:text-rose-300">Ngân sách</p>
-        <h2 className="m-0 mt-1 text-xl font-bold tracking-tight text-slate-950 dark:text-white">Hạn mức tháng</h2>
+        <h2 className="m-0 mt-1 break-words text-xl font-bold tracking-tight text-slate-950 dark:text-white">Hạn mức tháng</h2>
         <p className="m-0 mt-2 text-sm font-medium text-slate-500 dark:text-slate-400">{formatMonth(month)}</p>
       </div>
 
