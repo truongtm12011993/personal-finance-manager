@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { APP_TABS, type TabKey } from "@/components/app-navigation";
 import { useTabNavigation } from "@/components/use-tab-navigation";
 import { cn } from "@/lib/utils";
@@ -10,7 +11,7 @@ interface MobileBottomNavProps {
 }
 
 export function MobileBottomNav({ activeTab }: MobileBottomNavProps) {
-  const { isPending, switchTab } = useTabNavigation(activeTab);
+  const { hrefForTab, isPending, prefetchTab } = useTabNavigation(activeTab);
 
   return (
     <nav
@@ -23,11 +24,14 @@ export function MobileBottomNav({ activeTab }: MobileBottomNavProps) {
           const Icon = tab.icon;
 
           return (
-            <button
+            <Link
               key={tab.key}
-              type="button"
+              href={hrefForTab(tab.key)}
+              prefetch={true}
+              replace
+              scroll={false}
               aria-current={isActive ? "page" : undefined}
-              disabled={isPending}
+              aria-disabled={isPending}
               className={cn(
                 "relative flex min-h-[56px] flex-col items-center justify-center gap-1 overflow-hidden rounded-2xl border px-1.5 text-[10px] font-bold tracking-tight transition duration-200 ease-out",
                 isActive
@@ -35,7 +39,14 @@ export function MobileBottomNav({ activeTab }: MobileBottomNavProps) {
                   : "border-slate-200 bg-white text-slate-500 active:scale-[0.98] dark:border-white/5 dark:bg-white/5 dark:text-slate-400",
                 isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer",
               )}
-              onClick={() => switchTab(tab.key)}
+              onTouchStart={() => prefetchTab(tab.key)}
+              onMouseEnter={() => prefetchTab(tab.key)}
+              onFocus={() => prefetchTab(tab.key)}
+              onClick={(event) => {
+                if (isPending || isActive) {
+                  event.preventDefault();
+                }
+              }}
             >
               {isActive ? (
                 <motion.span
@@ -46,7 +57,7 @@ export function MobileBottomNav({ activeTab }: MobileBottomNavProps) {
               ) : null}
               <Icon className="relative z-10 h-5 w-5" strokeWidth={2.4} aria-hidden="true" />
               <span className="relative z-10 max-w-full truncate whitespace-nowrap">{tab.shortLabel}</span>
-            </button>
+            </Link>
           );
         })}
       </div>

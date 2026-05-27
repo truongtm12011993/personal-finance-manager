@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { APP_TABS, type TabKey } from "@/components/app-navigation";
 import { useTabNavigation } from "@/components/use-tab-navigation";
 import { cn } from "@/lib/utils";
@@ -10,7 +11,7 @@ interface DesktopTabsProps {
 }
 
 export function DesktopTabs({ activeTab }: DesktopTabsProps) {
-  const { isPending, switchTab } = useTabNavigation(activeTab);
+  const { hrefForTab, isPending, prefetchTab } = useTabNavigation(activeTab);
 
   return (
     <nav className="hidden h-full flex-col lg:flex" aria-label="Điều hướng chính">
@@ -30,12 +31,15 @@ export function DesktopTabs({ activeTab }: DesktopTabsProps) {
           const Icon = tab.icon;
 
           return (
-            <button
+            <Link
               key={tab.key}
-              type="button"
+              href={hrefForTab(tab.key)}
+              prefetch={true}
+              replace
+              scroll={false}
               role="tab"
               aria-selected={isActive}
-              disabled={isPending}
+              aria-disabled={isPending}
               className={cn(
                 "group relative flex min-h-[68px] w-full items-center gap-3 overflow-hidden rounded-2xl border px-4 text-left transition duration-200 ease-out",
                 isActive
@@ -43,7 +47,13 @@ export function DesktopTabs({ activeTab }: DesktopTabsProps) {
                   : "border-white/5 bg-white/[0.04] text-slate-300 hover:border-white/10 hover:bg-white/[0.08] hover:text-white",
                 isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer",
               )}
-              onClick={() => switchTab(tab.key)}
+              onMouseEnter={() => prefetchTab(tab.key)}
+              onFocus={() => prefetchTab(tab.key)}
+              onClick={(event) => {
+                if (isPending || isActive) {
+                  event.preventDefault();
+                }
+              }}
             >
               {isActive ? (
                 <motion.span
@@ -66,7 +76,7 @@ export function DesktopTabs({ activeTab }: DesktopTabsProps) {
                   {tab.eyebrow}
                 </span>
               </span>
-            </button>
+            </Link>
           );
         })}
       </div>
