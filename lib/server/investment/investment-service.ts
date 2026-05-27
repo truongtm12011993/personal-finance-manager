@@ -23,10 +23,10 @@ import {
 } from "./investment-inputs";
 import { requireUserId } from "@/lib/server/auth";
 
-export async function getInvestmentDashboard(
-  filters: InvestmentFilters
+export async function getInvestmentDashboardForUser(
+  filters: InvestmentFilters,
+  userId: string
 ): Promise<InvestmentDashboardData> {
-  const userId = await requireUserId();
   const base = await fetchInvestmentDashboardBase(userId);
   
   // 1. Build GLOBAL holdings (all assets) for accurate summary/alerts
@@ -72,6 +72,13 @@ export async function getInvestmentDashboard(
     holdings,
     summary: finalSummary
   };
+}
+
+export async function getInvestmentDashboard(
+  filters: InvestmentFilters
+): Promise<InvestmentDashboardData> {
+  const userId = await requireUserId();
+  return getInvestmentDashboardForUser(filters, userId);
 }
 
 export async function addInvestmentAsset(input: UpsertInvestmentAssetInput): Promise<void> {

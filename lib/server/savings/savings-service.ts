@@ -15,8 +15,7 @@ import {
 import { SavingsEntryInput, SavingsEntryUpdateInput, SavingsGoalInput, SavingsGoalUpdateInput } from "./savings-inputs";
 import { SavingsDashboardData } from "./savings-types";
 
-export async function getSavingsDashboard(): Promise<SavingsDashboardData> {
-  const userId = await requireUserId();
+export async function getSavingsDashboardForUser(userId: string): Promise<SavingsDashboardData> {
   const base = await fetchSavingsDashboardBase(userId);
   const now = new Date();
 
@@ -48,6 +47,11 @@ export async function getSavingsDashboard(): Promise<SavingsDashboardData> {
       maturingIn90Amount
     }
   };
+}
+
+export async function getSavingsDashboard(): Promise<SavingsDashboardData> {
+  const userId = await requireUserId();
+  return getSavingsDashboardForUser(userId);
 }
 
 export async function addSavingsGoal(input: SavingsGoalInput): Promise<void> {

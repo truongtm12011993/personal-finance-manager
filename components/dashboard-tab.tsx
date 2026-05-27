@@ -12,9 +12,10 @@ import {
 import { DashboardCharts } from "@/components/dashboard-charts";
 import { MoneyValue, SectionCard } from "@/components/fintech-ui";
 import { monthKey } from "@/lib/finance";
-import { getExpenseDashboard } from "@/lib/server/expense/expense-service";
-import { getInvestmentDashboard } from "@/lib/server/investment/investment-service";
-import { getSavingsDashboard } from "@/lib/server/savings/savings-service";
+import { requireUserId } from "@/lib/server/auth";
+import { getExpenseDashboardForUser } from "@/lib/server/expense/expense-service";
+import { getInvestmentDashboardForUser } from "@/lib/server/investment/investment-service";
+import { getSavingsDashboardForUser } from "@/lib/server/savings/savings-service";
 
 type MetricTone = "neutral" | "positive" | "negative" | "info";
 
@@ -68,12 +69,13 @@ function MetricCard({
 }
 
 export default async function DashboardTab() {
+  const userId = await requireUserId();
   const currentMonth = monthKey(new Date());
   const [currentExpense, expenseHistory, investment, savings] = await Promise.all([
-    getExpenseDashboard({ month: currentMonth, category: "all" }),
-    getExpenseDashboard({ month: "all", category: "all" }),
-    getInvestmentDashboard({ month: "all", assetId: "all" }),
-    getSavingsDashboard(),
+    getExpenseDashboardForUser({ month: currentMonth, category: "all" }, userId),
+    getExpenseDashboardForUser({ month: "all", category: "all" }, userId),
+    getInvestmentDashboardForUser({ month: "all", assetId: "all" }, userId),
+    getSavingsDashboardForUser(userId),
   ]);
 
   const cashBalance = currentExpense.summary.balanceValue;

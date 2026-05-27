@@ -28,8 +28,10 @@ function getRecentMonthsFrom(endMonth: string, count: number) {
   return months;
 }
 
-export async function getExpenseDashboard(filters: ExpenseFilters): Promise<ExpenseDashboardData> {
-  const userId = await requireUserId();
+export async function getExpenseDashboardForUser(
+  filters: ExpenseFilters,
+  userId: string
+): Promise<ExpenseDashboardData> {
   const base = await fetchExpenseDashboardBase(filters, userId);
 
   const currentMonth = monthKey(new Date());
@@ -101,6 +103,11 @@ export async function getExpenseDashboard(filters: ExpenseFilters): Promise<Expe
     totalsByMonth: [...totalsByMonthMap.values()] as MonthlyExpenseTotal[],
     summary
   };
+}
+
+export async function getExpenseDashboard(filters: ExpenseFilters): Promise<ExpenseDashboardData> {
+  const userId = await requireUserId();
+  return getExpenseDashboardForUser(filters, userId);
 }
 
 export async function normalizeTransactionAmounts(): Promise<void> {
