@@ -27,7 +27,7 @@ export function MobileBottomNav({ activeTab }: MobileBottomNavProps) {
             <Link
               key={tab.key}
               href={hrefForTab(tab.key)}
-              prefetch={true}
+              prefetch={false}
               replace
               scroll={false}
               aria-current={isActive ? "page" : undefined}
@@ -41,7 +41,6 @@ export function MobileBottomNav({ activeTab }: MobileBottomNavProps) {
               )}
               onTouchStart={() => prefetchTab(tab.key)}
               onMouseEnter={() => prefetchTab(tab.key)}
-              onFocus={() => prefetchTab(tab.key)}
               onClick={(event) => {
                 if (isPending || isActive) {
                   event.preventDefault();

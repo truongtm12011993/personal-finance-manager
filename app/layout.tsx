@@ -54,8 +54,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                 if ('serviceWorker' in navigator) {
                   window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('/sw.js').catch(function() {});
+                    navigator.serviceWorker.getRegistrations()
+                      .then(function(registrations) {
+                        registrations.forEach(function(registration) {
+                          registration.unregister().catch(function() {});
+                        });
+                      })
+                      .catch(function() {});
                   });
+                }
+
+                if ('caches' in window) {
+                  caches.keys()
+                    .then(function(keys) {
+                      keys
+                        .filter(function(key) { return key.indexOf('finance-shell') === 0; })
+                        .forEach(function(key) { caches.delete(key).catch(function() {}); });
+                    })
+                    .catch(function() {});
                 }
               })()
             `,

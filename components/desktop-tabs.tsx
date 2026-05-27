@@ -34,7 +34,7 @@ export function DesktopTabs({ activeTab }: DesktopTabsProps) {
             <Link
               key={tab.key}
               href={hrefForTab(tab.key)}
-              prefetch={true}
+              prefetch={false}
               replace
               scroll={false}
               role="tab"
@@ -48,7 +48,6 @@ export function DesktopTabs({ activeTab }: DesktopTabsProps) {
                 isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer",
               )}
               onMouseEnter={() => prefetchTab(tab.key)}
-              onFocus={() => prefetchTab(tab.key)}
               onClick={(event) => {
                 if (isPending || isActive) {
                   event.preventDefault();
